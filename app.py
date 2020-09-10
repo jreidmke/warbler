@@ -219,6 +219,25 @@ def profile():
     """Update profile for current user."""
 
     # IMPLEMENT THIS
+    user = session[CURR_USER_KEY]
+    form = UserAddForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        user = User.authenticate(username, password)
+        if user:
+            user.usernamename = form.username.data
+            user.email = form.email.data
+            user.bio = form.bio.data
+            user.location = form.location.data
+            user.image_url = form.image_url.data or User.image_url.default.arg
+
+            db.session.add(user)
+            db.session.commit()
+
+            return redirect(f'users/{user.id}')
+    return render_template('users/edit.html', form = form)
+
 
 
 @app.route('/users/delete', methods=["POST"])
