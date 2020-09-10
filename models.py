@@ -27,7 +27,7 @@ class Follows(db.Model):
     )
 
 
-class Likes(db.Model):
+class Like(db.Model):
     """Mapping user likes to warbles."""
 
     __tablename__ = 'likes'
