@@ -41,6 +41,7 @@ class UserModelTestCase(TestCase):
 
         self.client = app.test_client()
 
+
     def test_user_model(self):
         """Does basic model work?"""
 
@@ -52,7 +53,9 @@ class UserModelTestCase(TestCase):
 
         db.session.add(u)
         db.session.commit()
+        u_rep = u.__repr__()
 
         # User should have no messages & no followers
         self.assertEqual(len(u.messages), 0)
         self.assertEqual(len(u.followers), 0)
+        self.assertIn(f'User #{u.id}: {u.username}, {u.email}', u_rep)

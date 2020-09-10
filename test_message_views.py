@@ -47,6 +47,8 @@ class MessageViewTestCase(TestCase):
         self.testuser = User.signup(username="testuser",
                                     email="test@test.com",
                                     password="testuser",
+                                    bio='Hello',
+                                    location='Mexico',
                                     image_url=None)
 
         db.session.commit()
