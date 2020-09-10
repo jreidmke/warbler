@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm, LoginForm, MessageForm
-from models import db, connect_db, User, Message
+from models import db, connect_db, User, Message, Like
 
 CURR_USER_KEY = "curr_user"
 
@@ -317,6 +317,7 @@ def homepage():
     - logged in: 100 most recent messages of followed_users
     """
     followed_id = [user.id for user in g.user.following]
+    liked_id = [msg.id for msg in g.user.likes]
 
     if g.user:
         messages = (Message
@@ -326,7 +327,7 @@ def homepage():
                     .limit(100)
                     .all())
 
-        return render_template('home.html', messages=messages, followed_id=followed_id)
+        return render_template('home.html', messages=messages, followed_id=followed_id, liked_id=liked_id)
 
     else:
         return render_template('home-anon.html')
@@ -334,12 +335,12 @@ def homepage():
 
 @app.route('/users/add_like/<int:message_id>', methods=["POST"])
 def add_like(message_id):
-    user = session[CURR_USER_KEY]
+    user = User.query.get(session[CURR_USER_KEY])
     message = Message.query.get(message_id)
     like = Like(user_id=user.id, message_id=message.id)
     db.session.add(like)
     db.session.commit()
-    return redirect(f'/users/{user.id}')
+    return redirect('/')
 
 
 ##############################################################################

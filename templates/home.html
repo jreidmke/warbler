@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h1>{{liked_id}}</h1>
+
   <div class="row">
 
     <aside class="col-md-4 col-lg-3 col-sm-12" id="home-aside">
@@ -53,8 +55,20 @@
               <p>{{ msg.text }}</p>
             </div>
 
+            {% if msg.id not in liked_id%}
+              <form method="POST" action="/users/add_like/{{ msg.id }}" id="messages-form">
+                <button class="
+                  btn
+                  btn-sm
+                  {{'btn-primary' if msg.id in likes else 'btn-secondary'}}"
+                >
+                  <i class="far fa-thumbs-up"></i>
+                </button>
+              </form>
 
-            <form method="POST" action="/users/add_like/{{ msg.id }}" id="messages-form">
+            {% else %}
+
+            <form method="POST" action="/users/remove_like/{{ msg.id }}" id="messages-form">
               <button class="
                 btn
                 btn-sm
@@ -63,6 +77,8 @@
                 <i class="fa fa-thumbs-up"></i>
               </button>
             </form>
+
+            {% endif %}
 
 
           </li>
