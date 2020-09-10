@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<!-- <h1>{{g.user.following[0].messages[0].text}}</h1> -->
+
+<h1>{{followed_id}}</h1>
+
   <div class="row">
 
     <aside class="col-md-4 col-lg-3 col-sm-12" id="home-aside">
@@ -42,7 +47,7 @@
       <ul class="list-group" id="messages">
         {% for msg in messages %}
           <li class="list-group-item">
-            <a href="/messages/{{ msg.id  }}" class="message-link"/>
+            <a href="/messages/{{ msg.id  }}" class="message-link"></a>
             <a href="/users/{{ msg.user.id }}">
               <img src="{{ msg.user.image_url }}" alt="" class="timeline-image">
             </a>
@@ -53,11 +58,11 @@
             </div>
             <form method="POST" action="/users/add_like/{{ msg.id }}" id="messages-form">
               <button class="
-                btn 
-                btn-sm 
+                btn
+                btn-sm
                 {{'btn-primary' if msg.id in likes else 'btn-secondary'}}"
               >
-                <i class="fa fa-thumbs-up"></i> 
+                <i class="fa fa-thumbs-up"></i>
               </button>
             </form>
           </li>
