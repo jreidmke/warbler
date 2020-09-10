@@ -63,7 +63,7 @@ class UserModelTestCase(TestCase):
         self.assertIn(f'User #{self.user.id}: {self.user.username}, {self.user.email}', u_rep)
 
     def test_user_registration(self):
-        reg_obj = User.signup(username=self.user.username, email=self.user.email, password='password', location=self.user.location, image_url=self.user.image_url, bio=self.user.bio)
+        reg_obj = User.signup(username=self.user.username, email=self.user.email, password=self.user.password, location=self.user.location, image_url=self.user.image_url, bio=self.user.bio)
         self.assertEqual(reg_obj.username, self.user.username)
 
     def test_user_authentication(self):
