@@ -17,7 +17,7 @@ class UserAddForm(FlaskForm):
     password = PasswordField('Password', validators=[Length(min=6)])
     location = StringField('Location', validators=[DataRequired()])
     image_url = StringField('(Optional) Image URL')
-    bio = TextAreaField('(Optional) Content', render_kw={'class': 'form-control', 'rows': 5})
+    bio = TextAreaField('Biography', render_kw={'class': 'form-control', 'rows': 5}, validators=[DataRequired()])
 
 
 class LoginForm(FlaskForm):
