@@ -49,6 +49,7 @@ class UserModelTestCase(TestCase):
         User.query.delete()
         Message.query.delete()
         Follows.query.delete()
+        db.session.rollback()
 
     def test_user_model(self):
         """Does basic model work?"""
