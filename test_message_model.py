@@ -44,3 +44,6 @@ class UserModelTestCase(TestCase):
         db.session.commit()
 
         self.assertEqual(len(self.user.messages), 1)
+        self.assertEqual(self.msg.user_id, self.user.id)
+        self.assertIn('Lorem ipsum dolor', self.msg.text)
+        self.assertIn('Lorem ipsum dolor', self.user.messages[0].text)

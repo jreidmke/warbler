@@ -66,10 +66,16 @@ class MessageViewTestCase(TestCase):
             # Now, that session setting is saved, so we can have
             # the rest of ours test
 
-            resp = c.post("/messages/new", data={"text": "Hello"})
+            resp = c.post("/messages/new", data={"text": "Hello"}, follow_redirects=True)
+            html = resp.get_data(as_text=True)
 
             # Make sure it redirects
-            self.assertEqual(resp.status_code, 302)
+            self.assertEqual(resp.status_code, 200)
 
             msg = Message.query.one()
             self.assertEqual(msg.text, "Hello")
+            self.assertIn(msg.text, html)
+
+    def test_add_message_fail(self):
+        resp = self.client.post('/messages/new', data={'text': ''})
+        self.assertEqual(resp.status_code, 302)
