@@ -342,6 +342,15 @@ def add_like(message_id):
     db.session.commit()
     return redirect('/')
 
+@app.route('/users/remove_like/<int:message_id>', methods=["POST"])
+def remove_like(message_id):
+    user = User.query.get(session[CURR_USER_KEY])
+    message = Message.query.get(message_id)
+    like = Like.query.filter_by(user_id=user.id, message_id=message.id).first()
+    db.session.delete(like)
+    db.session.commit()
+    return redirect('/')
+
 
 ##############################################################################
 # Turn off all caching in Flask
