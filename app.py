@@ -316,10 +316,11 @@ def homepage():
     - anon users: no messages
     - logged in: 100 most recent messages of followed_users
     """
-    followed_id = [user.id for user in g.user.following]
-    liked_id = [msg.id for msg in g.user.likes]
+
 
     if g.user:
+        followed_id = [user.id for user in g.user.following]
+        liked_id = [msg.id for msg in g.user.likes]
         messages = (Message
                     .query
                     .filter(Message.user_id.in_(followed_id))
