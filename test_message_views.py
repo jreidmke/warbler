@@ -91,5 +91,4 @@ class MessageViewTestCase(TestCase):
         resp = self.client.post("/messages/new", data={"text":""}, follow_redirects=True)
         html = resp.get_data(as_text=True)
         self.assertEqual(resp.status_code, 200)
-        # self.assertEqual(resp.location, 'http://localhost/messages/new')
         self.assertIn('This field is required', html)
