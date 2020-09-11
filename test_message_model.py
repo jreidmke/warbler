@@ -12,7 +12,7 @@ from app import app
 db.create_all()
 bcrypt = Bcrypt()
 
-class UserModelTestCase(TestCase):
+class MessageModelTestCase(TestCase):
 
     def setUp(self):
         User.query.delete()
